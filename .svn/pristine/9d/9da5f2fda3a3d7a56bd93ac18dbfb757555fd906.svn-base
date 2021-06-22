@@ -1,0 +1,89 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+
+namespace Draw
+{
+    public class PolygonShape : Shape
+    {
+
+
+	#region Constructor
+	PointF One = new PointF();
+	PointF Two = new PointF();
+    PointF Three = new PointF();
+	PointF Four = new PointF();
+    PointF Five = new PointF();
+	PointF Six = new PointF();
+
+	public PolygonShape(PointF one,PointF two,PointF three,PointF four,PointF five,PointF six) : base(one,two,three,four,five,six)
+	{
+		One = one;
+		Two = two;
+		Three = three;
+		Four = four;
+		Five = five;
+		Six = six;
+	}
+
+	public PolygonShape(PolygonShape polygon) : base(polygon)
+	{
+	}
+
+	#endregion
+
+	/// <summary>
+	/// Проверка за принадлежност на точка point към правоъгълника.
+	/// В случая на правоъгълник този метод може да не бъде пренаписван, защото
+	/// Реализацията съвпада с тази на абстрактния клас Shape, който проверява
+	/// дали точката е в обхващащия правоъгълник на елемента (а той съвпада с
+	/// елемента в този случай).
+	/// </summary>
+	public override bool Contains(PointF point)
+	{
+		if (base.Contains(point))
+		{
+				return true;
+		}
+
+		else {
+			// Ако не е в обхващащия правоъгълник, то неможе да е в обекта и => false
+			return false;
+		}
+	}
+	/// <summary>
+	/// Частта, визуализираща конкретния примитив.
+	/// </summary>
+	public override void DrawSelf(Graphics grfx)
+	{
+			/*Random rnd = new Random();*/
+			//int firstX = rnd.Next(50, 150);
+			//int firstY = rnd.Next(50, 150);
+			/*int firstX = rnd.Next(50, 550);
+			int firstY = rnd.Next(150, 500);
+			*/
+			/*polygonPoints[0] = new Point(firstX, firstY);
+			polygonPoints[1] = new Point((int)(firstX/2.5), (int)(firstY / 2.3));
+			polygonPoints[2] = new Point(firstX*2, firstY/15);
+			polygonPoints[3] = new Point((int)(firstX*3.5), (int)(firstY / 2.3));
+			polygonPoints[4] = new Point(firstY, firstY);
+			polygonPoints[5] = new Point(firstX, firstY);*/
+			/*PointF one = new PointF(firstX, firstY);
+			PointF two = new PointF(firstX - 30, firstY - 85);
+			PointF three = new PointF(firstX + 50, firstY - 140);
+			PointF four = new PointF(firstX + 125, firstY - 85);
+			PointF five = new PointF(firstX + 100, firstY);
+			PointF six = new PointF(firstX, firstY);*/
+			base.DrawSelf(grfx);
+			grfx.FillPolygon(new SolidBrush(FillColor), new PointF[] { One,Two,Three,Four,Five,Six});
+			grfx.DrawPolygon(Pens.Black, new PointF[] { One,Two,Three,Four,Five });
+			
+			
+
+
+		}
+
+}
+}

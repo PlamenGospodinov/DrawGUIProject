@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+
+namespace Draw
+{
+    public class PolygonShape : Shape
+    {
+
+    
+	#region Constructor
+
+	public PolygonShape(Point[] poi) : base(poi)
+	{
+	}
+
+	public PolygonShape(PolygonShape polygon) : base(polygon)
+	{
+	}
+
+	#endregion
+
+	/// <summary>
+	/// Проверка за принадлежност на точка point към правоъгълника.
+	/// В случая на правоъгълник този метод може да не бъде пренаписван, защото
+	/// Реализацията съвпада с тази на абстрактния клас Shape, който проверява
+	/// дали точката е в обхващащия правоъгълник на елемента (а той съвпада с
+	/// елемента в този случай).
+	/// </summary>
+	public override bool Contains(PointF point)
+	{
+		if (base.Contains(point))
+		{
+				return true;
+		}
+
+		else {
+			// Ако не е в обхващащия правоъгълник, то неможе да е в обекта и => false
+			return false;
+		}
+	}
+	/// <summary>
+	/// Частта, визуализираща конкретния примитив.
+	/// </summary>
+	public override void DrawSelf(Graphics grfx)
+	{
+			Random rnd = new Random();
+			//int firstX = rnd.Next(50, 150);
+			//int firstY = rnd.Next(50, 150);
+			int firstX = rnd.Next(50, 550);
+			int firstY = rnd.Next(150, 500);
+			Point[] polygonPoints = new Point[6];
+			/*polygonPoints[0] = new Point(firstX, firstY);
+			polygonPoints[1] = new Point((int)(firstX/2.5), (int)(firstY / 2.3));
+			polygonPoints[2] = new Point(firstX*2, firstY/15);
+			polygonPoints[3] = new Point((int)(firstX*3.5), (int)(firstY / 2.3));
+			polygonPoints[4] = new Point(firstY, firstY);
+			polygonPoints[5] = new Point(firstX, firstY);*/
+			polygonPoints[0] = new Point(firstX, firstY);
+			polygonPoints[1] = new Point(firstX - 30, firstY - 85);
+			polygonPoints[2] = new Point(firstX + 50, firstY - 140);
+			polygonPoints[3] = new Point(firstX + 125, firstY - 85);
+			polygonPoints[4] = new Point(firstX + 100, firstY);
+			polygonPoints[5] = new Point(firstX, firstY);
+			base.DrawSelf(grfx);
+			grfx.FillPolygon(new SolidBrush(FillColor), polygonPoints);
+			grfx.DrawPolygon(Pens.Black, polygonPoints);
+			
+
+
+
+		}
+
+}
+}

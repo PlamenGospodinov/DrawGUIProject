@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+
+namespace Draw
+{
+    public class LineShape : Shape
+		{
+		#region Constructor
+
+
+		PointF P1 = new PointF();
+		PointF P2 = new PointF();
+		public LineShape(PointF p1, PointF p2) : base(p1,p2)
+        {
+			P1 = p1;
+			P2 = p2;
+        }
+
+		public LineShape(LineShape line) : base(line)
+		{
+
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Проверка за принадлежност на точка point към правоъгълника.
+		/// В случая на правоъгълник този метод може да не бъде пренаписван, защото
+		/// Реализацията съвпада с тази на абстрактния клас Shape, който проверява
+		/// дали точката е в обхващащия правоъгълник на елемента (а той съвпада с
+		/// елемента в този случай).
+		/// </summary>
+		public override bool Contains(PointF point)
+		{
+			if (base.Contains(point))
+			{
+				/*float slope = (P1.Y - P2.Y) / (P1.X - P2.X);
+				float y = 0;
+				if (point.Y == ((slope * point.X) + c))
+					return true;*/
+				float a = Width / 2;
+				float b = Height / 2;
+				float x1 = Location.X + a;
+				float y1 = Location.Y + b;
+
+				bool isIt = Math.Pow((point.X - x1) / a, 2) + Math.Pow((point.Y - y1) / b, 2) - 1 <= 0;
+				return isIt;
+			}
+
+			else {
+				// Ако не е в обхващащия правоъгълник, то неможе да е в обекта и => false
+				return false;
+			}
+		}
+			/// <summary>
+			/// Частта, визуализираща конкретния примитив.
+			/// </summary>
+			public override void DrawSelf(Graphics grfx)
+			{
+				Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 5);
+				base.DrawSelf(grfx);
+				
+				grfx.DrawLine(blackPen, P1, P2);
+				//grfx.DrawLine(blackPen, Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
+				
+
+
+			}
+		
+	}
+}

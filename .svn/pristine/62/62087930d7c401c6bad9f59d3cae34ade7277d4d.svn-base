@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Text;
+
+namespace Draw
+{
+    public class LineShape : Shape
+		{
+		#region Constructor
+
+
+		PointF P1 = new PointF();
+		PointF P2 = new PointF();
+		public LineShape(PointF p1, PointF p2) : base(p1,p2)
+        {
+			P1 = p1;
+			P2 = p2;
+        }
+
+		public LineShape(LineShape line) : base(line)
+		{
+
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Проверка за принадлежност на точка point към правоъгълника.
+		/// В случая на правоъгълник този метод може да не бъде пренаписван, защото
+		/// Реализацията съвпада с тази на абстрактния клас Shape, който проверява
+		/// дали точката е в обхващащия правоъгълник на елемента (а той съвпада с
+		/// елемента в този случай).
+		/// </summary>
+		/// 
+		bool IsOnLine(PointF p1, PointF p2, PointF p, int width = 1)
+		{
+			using (var path = new GraphicsPath())
+			{
+				using (var pen = new Pen(Brushes.Black, width))
+				{
+					path.AddLine(p1, p2);
+					return path.IsOutlineVisible(p, pen);
+				}
+			}
+		}
+
+		public override bool Contains(PointF point)
+		{
+			if (base.Contains(point))
+			{
+				
+				return IsOnLine(P1, P2, point, 5);
+				/*float m = (P2.Y - P1.Y) / (P2.X - P1.X);
+				float c = P1.Y - (m * P2.X);
+				return point.X >= Math.Min(P1.X, P2.X)
+					&& point.X <= Math.Max(P1.X, P2.X)
+					&& point.Y >= Math.Min(P1.Y, P2.Y)
+					&& point.Y <= Math.Max(P1.Y, P2.Y)
+					&& Math.Abs(Math.Abs(point.Y) - Math.Abs((m * point.X) + c)) < 0;*/
+			}
+
+			else {
+				// Ако не е в обхващащия правоъгълник, то неможе да е в обекта и => false
+				return false;
+			}
+		}
+			/// <summary>
+			/// Частта, визуализираща конкретния примитив.
+			/// </summary>
+			public override void DrawSelf(Graphics grfx)
+			{
+				Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 5);
+				base.DrawSelf(grfx);
+				
+				grfx.DrawLine(blackPen, P1, P2);
+				//grfx.DrawLine(blackPen, Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
+				
+
+
+			}
+		
+	}
+}

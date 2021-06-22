@@ -1,0 +1,179 @@
+﻿using Draw;
+using System;
+using System.Drawing;
+
+namespace Draw
+{
+	/// <summary>
+	/// Класът, който ще бъде използван при управляване на диалога.
+	/// </summary>
+	public class DialogProcessor : DisplayProcessor
+	{
+		#region Constructor
+		
+		public DialogProcessor()
+		{
+		}
+		
+		#endregion
+		
+		#region Properties
+		
+		/// <summary>
+		/// Избран елемент.
+		/// </summary>
+		private Shape selection;
+		public Shape Selection {
+			get { return selection; }
+			set { selection = value; }
+		}
+		
+		/// <summary>
+		/// Дали в момента диалога е в състояние на "влачене" на избрания елемент.
+		/// </summary>
+		private bool isDragging;
+		public bool IsDragging {
+			get { return isDragging; }
+			set { isDragging = value; }
+		}
+		
+		/// <summary>
+		/// Последна позиция на мишката при "влачене".
+		/// Използва се за определяне на вектора на транслация.
+		/// </summary>
+		private PointF lastLocation;
+		public PointF LastLocation {
+			get { return lastLocation; }
+			set { lastLocation = value; }
+		}
+		
+		#endregion
+		
+		/// <summary>
+		/// Добавя примитив - правоъгълник на произволно място върху клиентската област.
+		/// </summary>
+		public void AddRandomRectangle()
+		{
+			Random rnd = new Random();
+			int x = rnd.Next(100,1000);
+			int y = rnd.Next(100,600);
+			
+			RectangleShape rect = new RectangleShape(new Rectangle(x,y,100,200));
+			rect.FillColor = Color.White;
+
+			ShapeList.Add(rect);
+		}
+
+		public void AddRandomEllipse()
+		{
+			Random rnd = new Random();
+			int x = rnd.Next(100, 1000);
+			int y = rnd.Next(100, 600);
+
+			EllipseShape ellipse = new EllipseShape(new Rectangle(x, y, 100, 200));
+			ellipse.FillColor = Color.White;
+
+			ShapeList.Add(ellipse);
+		}
+
+		public void AddRandomPoint()
+        {
+			Random rnd = new Random();
+			int x = rnd.Next(100, 1000);
+			int y = rnd.Next(100, 600);
+			PointShape point = new PointShape(new Rectangle(x, y, 3, 3));
+			point.FillColor = Color.Black;
+
+			ShapeList.Add(point);
+		}
+
+		public void AddRandomLine()
+		{
+			Random rnd = new Random();
+			int x1 = rnd.Next(100, 1000);
+			int y1 = rnd.Next(100, 600);
+			int x2 = rnd.Next(100, 1000);
+			int y2 = rnd.Next(100, 600);
+			//LineShape line = new LineShape(new Rectangle(x1, y1, x2, y2));
+			PointF p1 = new PointF(x1, y1);
+			PointF p2 = new PointF(x2, y2);
+			LineShape line = new LineShape(p1, p2);
+			ShapeList.Add(line);
+		}
+
+		public void AddRandomPolygon()
+        {
+			Random rnd = new Random();
+			int firstX = rnd.Next(50, 550);
+			int firstY = rnd.Next(150, 500);
+			//int firstX = 80;
+			//int firstY = 240;
+			//Point[] polygonPoints = new Point[6];
+			PointF one = new PointF(firstX, firstY);
+			PointF two = new PointF(firstX-30, firstY-85);
+			PointF three = new PointF(firstX+50, firstY-140);
+			PointF four = new PointF(firstX + 125, firstY - 85);
+			PointF five = new PointF(firstX + 100, firstY);
+			PointF six = new PointF(firstX, firstY);
+			/*polygonPoints[0] = new Point(250, 750);
+			polygonPoints[1] = new Point(100, 325);
+			polygonPoints[2] = new Point(500, 50);
+			polygonPoints[3] = new Point(875, 325);
+			polygonPoints[4] = new Point(750, 750);
+			polygonPoints[5] = new Point(250, 750);*/
+			/*polygonPoints[0] = new Point(firstX, firstY);
+			polygonPoints[1] = new Point((int)(firstX / 2.5), (int)(firstY / 2.3));
+			polygonPoints[2] = new Point(firstX * 2, firstY / 15);
+			polygonPoints[3] = new Point((int)(firstX * 3.5), (int)(firstY / 2.3));
+			polygonPoints[4] = new Point(firstY, firstY);
+			polygonPoints[5] = new Point(firstX, firstY);*/
+			PolygonShape polygon = new PolygonShape(one, two, three, four, five, six);
+			polygon.FillColor = Color.White;
+			ShapeList.Add(polygon);
+		}
+
+
+		public void AddRandomCircle()
+		{
+			Random rnd = new Random();
+			int x = rnd.Next(100, 1000);
+			int y = rnd.Next(100, 600);
+
+			CircleShape circle = new CircleShape(new Rectangle(x, y, 200, 200));
+			circle.FillColor = Color.White;
+
+			ShapeList.Add(circle);
+		}
+
+		/// <summary>
+		/// Проверява дали дадена точка е в елемента.
+		/// Обхожда в ред обратен на визуализацията с цел намиране на
+		/// "най-горния" елемент т.е. този който виждаме под мишката.
+		/// </summary>
+		/// <param name="point">Указана точка</param>
+		/// <returns>Елемента на изображението, на който принадлежи дадената точка.</returns>
+		public Shape ContainsPoint(PointF point)
+		{
+			for(int i = ShapeList.Count - 1; i >= 0; i--){
+				if (ShapeList[i].Contains(point)){
+					ShapeList[i].FillColor = Color.Red;
+						
+					return ShapeList[i];
+				}	
+			}
+			return null;
+		}
+		
+		/// <summary>
+		/// Транслация на избраният елемент на вектор определен от <paramref name="p>p</paramref>
+		/// </summary>
+		/// <param name="p">Вектор на транслация.</param>
+		public void TranslateTo(PointF p)
+		{
+			if (selection != null) {
+				selection.Location = new PointF(selection.Location.X + p.X - lastLocation.X, selection.Location.Y + p.Y - lastLocation.Y);
+				lastLocation = p;
+			}
+		}
+	}
+}
