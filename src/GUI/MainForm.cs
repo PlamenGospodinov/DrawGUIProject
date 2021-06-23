@@ -547,5 +547,22 @@ namespace Draw
 
 			viewPort.Invalidate();
 		}
+
+        private void resizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+		public Button enterResizeBtn;
+		public TextBox widthBox;
+		public Label widthLabel;
+		public TextBox heightBox;
+		public Label heightLabel;
+		public Form resizeForm;
+		private void ResizeShapeMethod(object sender, EventArgs e)
+        {
+
+        }
     }
 }
