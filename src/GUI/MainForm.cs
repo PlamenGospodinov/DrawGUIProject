@@ -550,8 +550,8 @@ namespace Draw
 
         private void resizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-        }
+			ResizeShapeMethod(sender, e);
+		}
 
 
 		public Button enterResizeBtn;
@@ -562,7 +562,44 @@ namespace Draw
 		public Form resizeForm;
 		private void ResizeShapeMethod(object sender, EventArgs e)
         {
+			resizeForm = new Form();
 
-        }
+			resizeForm.Text = "Enter width and height: ";
+			enterResizeBtn = new Button();
+			Button cancelResizeBtn = new Button();
+			widthBox = new TextBox();
+			heightBox = new TextBox();
+			widthLabel = new Label();
+			heightLabel = new Label();
+			widthLabel.Text = "Enter width(5-800): ";
+			heightLabel.Text = "Enter height(5-800): ";
+			enterResizeBtn.Text = "Resize Shapes";
+			cancelResizeBtn.Text = "Cancel";
+			widthLabel.Location = new Point(25, 80);
+			heightLabel.Location = new Point(widthLabel.Left, widthLabel.Height + widthLabel.Top + 10);
+			widthBox.Location = new Point(widthLabel.Right+20, widthLabel.Height);
+			heightBox.Location = new Point(heightLabel.Right+20, widthBox.Height);
+			resizeForm.Controls.Add(widthLabel);
+			resizeForm.Controls.Add(heightLabel);
+			resizeForm.Controls.Add(widthBox);
+			resizeForm.Controls.Add(heightBox);
+			
+			enterResizeBtn.Location = new Point(heightBox.Left+12, heightBox.Height + heightBox.Top + 10);
+			cancelResizeBtn.Location = new Point(enterResizeBtn.Left, enterResizeBtn.Height + enterResizeBtn.Top + 10);
+			// Set the accept button of the form to button1.
+			resizeForm.AcceptButton = enterResizeBtn;
+
+			// Set the cancel button of the form to button2.
+			resizeForm.CancelButton = cancelResizeBtn;
+			// Add enterBtn to the form.
+			resizeForm.Controls.Add(enterResizeBtn);
+			enterResizeBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
+			// Add cancelBtn to the form.
+			resizeForm.Controls.Add(cancelResizeBtn);
+			resizeForm.StartPosition = FormStartPosition.CenterScreen;
+			resizeForm.ShowDialog();
+
+			//enterResizeBtn_Click(sender, e);
+		}
     }
 }
