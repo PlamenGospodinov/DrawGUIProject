@@ -577,7 +577,7 @@ namespace Draw
 			cancelResizeBtn.Text = "Cancel";
 			widthLabel.Location = new Point(25, 80);
 			heightLabel.Location = new Point(widthLabel.Left, widthLabel.Height + widthLabel.Top + 10);
-			widthBox.Location = new Point(widthLabel.Right+20, widthLabel.Height);
+			widthBox.Location = new Point(widthLabel.Left + widthLabel.Width +20, widthLabel.Height);
 			heightBox.Location = new Point(heightLabel.Right+20, widthBox.Height);
 			resizeForm.Controls.Add(widthLabel);
 			resizeForm.Controls.Add(heightLabel);
