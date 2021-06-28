@@ -571,20 +571,20 @@ namespace Draw
 			heightBox = new TextBox();
 			widthLabel = new Label();
 			heightLabel = new Label();
-			widthLabel.Text = "Enter width(5-800): ";
-			heightLabel.Text = "Enter height(5-800): ";
+			widthLabel.Text = "Enter width(5-800px): ";
+			heightLabel.Text = "Enter height(5-800px): ";
 			enterResizeBtn.Text = "Resize Shapes";
 			cancelResizeBtn.Text = "Cancel";
 			widthLabel.Location = new Point(25, 80);
-			heightLabel.Location = new Point(widthLabel.Left, widthLabel.Height + widthLabel.Top + 10);
-			widthBox.Location = new Point(widthLabel.Left + widthLabel.Width +20, widthLabel.Height);
-			heightBox.Location = new Point(heightLabel.Right+20, widthBox.Height);
+			heightLabel.Location = new Point(widthLabel.Left, widthLabel.Height + widthLabel.Top+10);
+			widthBox.Location = new Point(widthLabel.Left+widthLabel.Width+10, widthLabel.Top);
+			heightBox.Location = new Point(heightLabel.Left + heightLabel.Width + 10, heightLabel.Top);
 			resizeForm.Controls.Add(widthLabel);
 			resizeForm.Controls.Add(heightLabel);
 			resizeForm.Controls.Add(widthBox);
 			resizeForm.Controls.Add(heightBox);
 			
-			enterResizeBtn.Location = new Point(heightBox.Left+12, heightBox.Height + heightBox.Top + 10);
+			enterResizeBtn.Location = new Point(heightLabel.Left+80, heightBox.Height + heightBox.Top + 10);
 			cancelResizeBtn.Location = new Point(enterResizeBtn.Left, enterResizeBtn.Height + enterResizeBtn.Top + 10);
 			// Set the accept button of the form to button1.
 			resizeForm.AcceptButton = enterResizeBtn;
