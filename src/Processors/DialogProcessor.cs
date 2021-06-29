@@ -156,7 +156,7 @@ namespace Draw
 
 		public void AddRandomPolygon()
 		{
-			/*Random rnd = new Random();
+			Random rnd = new Random();
 			int firstX = rnd.Next(50, 550);
 			int firstY = rnd.Next(150, 500);
 			//int firstX = 80;
@@ -167,7 +167,7 @@ namespace Draw
 			PointF three = new PointF(firstX+50, firstY-140);
 			PointF four = new PointF(firstX + 125, firstY - 85);
 			PointF five = new PointF(firstX + 100, firstY);
-			PointF six = new PointF(firstX, firstY);*/
+			PointF six = new PointF(firstX, firstY);
 			/*polygonPoints[0] = new Point(250, 750);
 			polygonPoints[1] = new Point(100, 325);
 			polygonPoints[2] = new Point(500, 50);
@@ -180,13 +180,13 @@ namespace Draw
 			polygonPoints[3] = new Point((int)(firstX * 3.5), (int)(firstY / 2.3));
 			polygonPoints[4] = new Point(firstY, firstY);
 			polygonPoints[5] = new Point(firstX, firstY);*/
-			/*PolygonShape polygon = new PolygonShape(one, two, three, four, five, six);
+			PolygonShape polygon = new PolygonShape(one, two, three, four, five, six);
 			polygon.Opacity = (int)currentOpac * 255;
 			polygon.FillColor = currentFillColor;
 			polygon.StrokeColor = currentStrokeColor;
 			polygon.BorderWidth = currentWidth;
 			
-			ShapeList.Add(polygon);*/
+			ShapeList.Add(polygon);
 		}
 
 

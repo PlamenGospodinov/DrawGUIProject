@@ -99,6 +99,8 @@ namespace Draw
 				shape.ShapeAngle = angle;
 			}
 		}
+
+
 		/// <summary>
 		/// Частта, визуализираща конкретния примитив.
 		/// </summary>
