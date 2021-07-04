@@ -185,7 +185,7 @@ namespace Draw
 			polygon.FillColor = currentFillColor;
 			polygon.StrokeColor = currentStrokeColor;
 			polygon.BorderWidth = currentWidth;
-			
+			 
 			ShapeList.Add(polygon);
 		}
 
