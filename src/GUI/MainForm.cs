@@ -571,8 +571,9 @@ namespace Draw
 			heightBox = new TextBox();
 			widthLabel = new Label();
 			heightLabel = new Label();
-			widthLabel.Text = "Enter width(5-800px): ";
-			heightLabel.Text = "Enter height(5-800px): ";
+			widthLabel.Text = "Width(5-800): ";
+			heightLabel.Text = "Height(5-800): ";
+			
 			enterResizeBtn.Text = "Resize Shapes";
 			cancelResizeBtn.Text = "Cancel";
 			widthLabel.Location = new Point(25, 80);
@@ -599,7 +600,44 @@ namespace Draw
 			resizeForm.StartPosition = FormStartPosition.CenterScreen;
 			resizeForm.ShowDialog();
 
-			//enterResizeBtn_Click(sender, e);
+			enterResizeBtn_Click(sender, e);
 		}
-    }
+
+		private void enterResizeBtn_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (widthBox.Text == "" || heightBox.Text == "")
+				{
+					resizeForm.Close();
+				}
+				else if ((float.Parse(widthBox.Text) < 5) || (float.Parse(widthBox.Text) > 800) || (float.Parse(heightBox.Text) < 5) || (float.Parse(heightBox.Text) > 800))
+				{
+					string message = "Enter appropriate values for width and height(5-800)!";
+					string caption = "Error Detected in Input";
+					MessageBoxButtons button = MessageBoxButtons.OK;
+					DialogResult result;
+
+					// Displays the MessageBox.
+					result = MessageBox.Show(message, caption, button);
+					if (result == System.Windows.Forms.DialogResult.OK)
+					{
+
+					}
+				}
+				else
+				{
+
+					dialogProcessor.ResizeShape(float.Parse(widthBox.Text), float.Parse(heightBox.Text));
+					statusBar.Items[0].Text = "Последно действие: Преоразмеряване на фигура/фигури.";
+					viewPort.Invalidate();
+				}
+			}
+			catch
+			{
+				resizeForm.Close();
+			}
+
+		}
+	}
 }
