@@ -388,6 +388,36 @@ namespace Draw
 			
 		}
 
+		public void ResizeShape(float width,float height)
+        {
+			foreach (var item in Selection)
+
+			{
+				if (width != -1)
+				{
+					if (item.GetType().Equals(typeof(GroupShape)))
+					{
+						item.GroupResizeWidth(width);
+					}
+					else
+					{
+						item.Width = width;
+					}
+				}
+				if (height != -1)
+				{
+					if (item.GetType().Equals(typeof(GroupShape)))
+					{
+						item.GroupResizeHeight(height);
+					}
+					else
+					{
+						item.Height = height;
+					}
+				}
+			}
+		}
+
 		public void UnGroupSelectedShapes()
         {
 			List<Shape> allShapesInGroup = new List<Shape>();

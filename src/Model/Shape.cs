@@ -177,6 +177,15 @@ namespace Draw
 
 		}
 
+		public virtual void GroupResizeWidth(float width)
+        {
+			this.Width = width;
+        }
+
+		public virtual void GroupResizeHeight(float height)
+		{
+			this.Height = height;
+		}
 		/// <summary>
 		/// Проверка дали точка point принадлежи на елемента.
 		/// </summary>

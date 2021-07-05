@@ -101,6 +101,48 @@ namespace Draw
 		}
 
 
+		public override void GroupResizeWidth(float width)
+		{
+			base.GroupResizeWidth(width);
+			float maxX = float.NegativeInfinity;
+			float minX = float.PositiveInfinity;
+			foreach (var item in groupedShape)
+			{
+				item.Width = width;
+				if (minX > item.Location.X)
+				{
+					minX = item.Location.X;
+				}
+				if (maxX < item.Location.X + item.Width)
+				{
+					maxX = item.Location.X + item.Width;
+				}
+
+			}
+			this.Rectangle = new RectangleF(minX, this.Rectangle.Y, maxX - minX, this.Rectangle.Height);
+		}
+		public override void GroupResizeHeight(float height)
+		{
+			base.GroupResizeHeight(height);
+			float maxY = float.NegativeInfinity;
+			float minY = float.PositiveInfinity;
+			foreach (var item in groupedShape)
+			{
+				item.Height = height;
+				if (minY > item.Location.Y)
+				{
+					minY = item.Location.Y;
+				}
+				if (maxY < item.Location.Y + item.Height)
+				{
+					maxY = item.Location.Y + item.Height;
+				}
+
+			}
+			this.Rectangle = new RectangleF(this.Rectangle.X, minY, this.Rectangle.Width, maxY - minY);
+
+		}
+
 		/// <summary>
 		/// Частта, визуализираща конкретния примитив.
 		/// </summary>
